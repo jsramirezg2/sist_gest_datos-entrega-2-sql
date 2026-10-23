@@ -1,10 +1,6 @@
--- =====================================================================
--- Sistema de Gestión de Préstamos para una Biblioteca Universitaria
--- Sistemas de Gestión de Datos — Entrega 2
--- Integrantes: Isabella Gómez, David Rodríguez, Juan Sebastian Ramirez
---
--- 3.2 Datos de prueba (al menos 5 registros por tabla)
--- =====================================================================
+
+-- Datos de prueba
+
 
 INSERT INTO categoria (id, nombre, descripcion, sala) VALUES
 (1, 'Literatura',      'Novela y cuento',        'Sala 1'),

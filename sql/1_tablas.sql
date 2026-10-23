@@ -1,11 +1,7 @@
--- =====================================================================
--- Sistema de Gestión de Préstamos para una Biblioteca Universitaria
--- Sistemas de Gestión de Datos — Entrega 2
--- Integrantes: Isabella Gómez, David Rodríguez, Juan Sebastian Ramirez
---
--- 3.1 Base de datos: tablas y relaciones (MySQL)
--- =====================================================================
 
+-- Base de datos (MySQL)
+
+-- limpiar base de datos para poder crearlo de nuevo
 DROP TABLE IF EXISTS multa;
 DROP TABLE IF EXISTS reserva;
 DROP TABLE IF EXISTS renovacion;
@@ -106,7 +102,6 @@ CREATE TABLE usuario (
     FOREIGN KEY (id_tipo_usuario) REFERENCES tipo_usuario(id)
 );
 
--- Atributo multivaluado USUARIO.telefono
 CREATE TABLE usuario_telefono (
     id_usuario  VARCHAR(15) NOT NULL,
     telefono    VARCHAR(10) NOT NULL,
@@ -114,7 +109,6 @@ CREATE TABLE usuario_telefono (
     FOREIGN KEY (id_usuario) REFERENCES usuario(id)
 );
 
--- Subtipos de USUARIO (especialización total y disyunta)
 CREATE TABLE estudiante (
     id_usuario  VARCHAR(15) NOT NULL,
     programa    VARCHAR(80) NOT NULL,
@@ -154,8 +148,7 @@ CREATE TABLE prestamo (
     CHECK (fecha_devolucion >= fecha_prestamo)
 );
 
--- Entidad débil: una renovación se identifica por su préstamo y su número
--- (renovación 1 del préstamo 4, renovación 2 del préstamo 4, ...).
+-- Entidad débil
 CREATE TABLE renovacion (
     id_prestamo            INT  NOT NULL,
     numero                 INT  NOT NULL,
@@ -183,10 +176,7 @@ CREATE TABLE reserva (
     CHECK (fecha_expiracion >= fecha_reserva)
 );
 
--- Entidad débil: la llave primaria de multa es el préstamo que la genera.
--- Como una llave primaria no se repite, cada préstamo tiene como máximo una multa.
--- El valor de la multa no se guarda: es un atributo derivado y se calcula en la
--- consulta 2 como dias_retraso * tarifa diaria del tipo de usuario + cargo_adicional.
+-- Entidad débil: la llave primaria de multa es el préstamo
 CREATE TABLE multa (
     id_prestamo       INT           NOT NULL,
     motivo            VARCHAR(10)   NOT NULL,
